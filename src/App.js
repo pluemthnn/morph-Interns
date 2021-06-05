@@ -1,6 +1,4 @@
 import Header from "./components/Header.js";
-import Input from "./components/Input.js";
-
 
 function App() {
   return (
