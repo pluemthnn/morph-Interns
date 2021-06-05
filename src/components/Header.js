@@ -16,7 +16,7 @@ export default function Header(props){
         </div>
         <div className="max-h-7xl my-auto pt-10">
             <div className="flex items-center justify-between flex-wrap">
-                <div className="md:w-full border-8 border-opacity-0">
+                <div className="md:w-full">
                     <Input placeholder="Input"></Input>
                 </div>
             </div>
