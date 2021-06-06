@@ -11,6 +11,7 @@ Please follow this guide before before, during and after making a pull request.
   * your code does not need to be perfect when making a pr
   * `!important` if you are stuck on something and google is of no help, ask for help (two or more minds work better than one)
   * pr helps you find errors in your process or code early, saving you and the project lots of time
+  * if your pr has ui changes, provide screenshots. (i forget this a lot in my(cijin) own pr's :P)
  
   ### A good commit
     * a good commit will solve one primary issue
