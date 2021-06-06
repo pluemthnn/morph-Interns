@@ -1,3 +1,28 @@
+# Guide to making pull requests (pr)
+Please follow this guide before before, during and after making a pull request.
+
+## Before making a pr
+ * Keep commits short
+ * Commit often : even if incomplete or has breaking changes. Inputs from others will speed up the process of fixing bugs or catching them early.
+ * Keep your pr short, makes it easier to review and will ensure that your pr gets reviewed quicker. 
+ * Althought there are exceptions to the point above, use judgement on what you think is ready to be reviewed
+
+## Submitting a new pr
+  * your code does not need to be perfect when making a pr
+  * `!important` if you are stuck on something and google is of no help, ask for help (two or more minds work better than one)
+  * pr helps you find errors in your process or code early, saving you and the project lots of time
+ 
+  ### A good commit
+    * a good commit will solve one primary issue
+    * gives the reviewer an idea of what the commit does
+  
+## After submitting a pr
+  * `!important` since both of you are still learning react, please do not merge a pr till it's approved by me (cijin)
+  * after you make a pr, paste the url to the pr in the `morph-inters` chat and tag me your team mates
+  * if i'm taking too long to review a pr, feel free to let me (cijin) know
+
+<hr />
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
