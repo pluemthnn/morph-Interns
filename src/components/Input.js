@@ -3,7 +3,7 @@ import Button from "./Button";
 import Text from "./Text";
 
 export default function Input(){
-    const [tasks, setTasks] = useState([]) // [id, task]
+    const [tasks, setTasks] = useState([]) // [id, text]
     const [text, setText] = useState('') // state
 
     const addTask = (task) => {
@@ -25,7 +25,7 @@ export default function Input(){
 
     return(
         <>
-            {tasks.length > 0 ? <Text tasks={tasks} onDelete={deleteTask} /> : ""}
+            {tasks.map((task, index) => <Text id={task.id} text={task.text} index={index} onDelete={deleteTask} />)}
             <form onSubmit={onSubmit}>
                 <div className="w-4/5 inline-block">
                     <input 
