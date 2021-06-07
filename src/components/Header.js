@@ -17,7 +17,7 @@ export default function Header(props){
         <div className="max-h-7xl my-auto">
             <div className="flex items-center justify-between flex-wrap">
                 <div className="md:w-full">
-                    <Input />
+                    <Input status={name}/>
                 </div>
             </div>
         </div>
