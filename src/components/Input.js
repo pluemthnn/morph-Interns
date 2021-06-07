@@ -41,8 +41,8 @@ export default function Input(){
     return(
         <>
             {tasks.map((task, index) => renderText(task, index))}
-            <form onSubmit={onSubmit}>
-                <div className="w-4/5 inline-block">
+            <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
+                <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
                         className="input-task" 
                         type="text" 
@@ -51,7 +51,7 @@ export default function Input(){
                         onChange={(e) => setText(e.target.value)}
                     /> 
                 </div>
-                <div className="w-1/5 inline-block">
+                <div className="grid-flow-row inline-block">
                     <Button name="Submit" />
                 </div>
             </form>  

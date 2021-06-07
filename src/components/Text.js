@@ -16,7 +16,7 @@ export default function Text ({ id, text, index, moveCard, onDelete }) {
 
     const opacity = isDragging ? 0.4 : 1;  
 
-    const [{ handlerId }, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: "crad",
         collect(monitor) {
             return {
@@ -47,7 +47,6 @@ export default function Text ({ id, text, index, moveCard, onDelete }) {
                 return;
             }
             moveCard(dragIndex, hoverIndex);
-            
             item.index = hoverIndex;
         },
     });
