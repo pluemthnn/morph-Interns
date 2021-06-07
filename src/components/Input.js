@@ -29,7 +29,7 @@ export default function Input(){
             <form onSubmit={onSubmit}>
                 <div className="w-4/5 inline-block">
                     <input 
-                        className="rounded-lg shadow-md bg-gray-50 border-2 border-gray-200 w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" 
+                        className="input-task" 
                         type="text" 
                         placeholder="Input" 
                         value={text}
