@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import Text from "./Text";
-import update from 'immutability-helper';
 
 export default function Input(){
-    const [tasks, setTasks] = useState([]) // [id, text]
+    const [tasks, setTasks] = useState([]) // [{ id, text }]
     const [text, setText] = useState('') // state
 
     const addTask = (task) => {
@@ -24,23 +23,9 @@ export default function Input(){
         setTasks(tasks.filter((task) => task.id !== id))
     }
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = tasks[dragIndex];
-        setTasks(update(tasks, {
-            $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
-            ],
-        }));
-    }, [tasks]);
-
-    const renderText = (task, index) => {
-        return (<Text key={task.id} index={index} id={task.id} text={task.text} moveCard={moveCard} onDelete={deleteTask}/>);
-    };
-
     return(
         <>
-            {tasks.map((task, index) => renderText(task, index))}
+            {tasks.map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask}/>)}
             <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
                 <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
@@ -55,8 +40,6 @@ export default function Input(){
                     <Button name="Submit" />
                 </div>
             </form>  
-        </>
-        
-        
+        </>  
     );
 }
