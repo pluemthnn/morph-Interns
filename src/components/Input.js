@@ -40,7 +40,7 @@ export default function Input(prop){
 
     return(
         <>
-            {(tasks).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext}/>)}
+            {(tasks).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext} boardName={boardName}/>)}
             <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
                 <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
