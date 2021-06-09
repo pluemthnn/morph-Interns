@@ -1,18 +1,17 @@
-import React, { useContext, useState } from "react";
-import { TasksContext, FunctionContext } from "../App";
+import React, { useState } from "react";
+import { useTasks, useUpdateTask } from "../TaskContext";
 import Button from "./Button";
 import Text from "./Text";
 
 export default function Input(prop){
     const boardId = prop;
     const boardName = String(Object.values(boardId));
-    const tasks = useContext(TasksContext); 
-    const {updateTask, removeTask, moveTask} = useContext(FunctionContext);
-    const [text, setText] = useState('') // state
+    const tasks = useTasks(); 
+    const {updateTask, removeTask, moveTask} = useUpdateTask();
+    const [text, setText] = useState('')
 
     const addTask = (text) => {
         const id = Math.floor(Math.random() * 100) + 1
-        // const newTask = [...tasks, {id, text}]
         const newTask = {id, text}
         updateTask(newTask, boardName, false)
     }
@@ -22,13 +21,11 @@ export default function Input(prop){
         if (!text) return;
         addTask(text)
         setText('')
-        console.log("Save")
     }
 
     const deleteTask = (id) => {
         const newTask = [...tasks];
         removeTask(newTask, boardName, true, false, id)
-        console.log("Delete")
     }
 
     const moveNext = (id, move) => {
@@ -39,7 +36,6 @@ export default function Input(prop){
         else {
             moveTask(tempTask, boardName, 0, id); // move left
         }
-        console.log("Move")
     }
 
     return(
