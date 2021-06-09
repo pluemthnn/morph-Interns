@@ -34,29 +34,32 @@ function App() {
     if (shouldDelete) {
       console.log('inShouldDelete');
       const deleteone = newTasks.filter((task) => task.id !== id);
-      thisTasks[boardId] = [...deleteone];
+      thisTasks[boardId].pop(...deleteone)
       setTasks(thisTasks);
       console.log(tasks);
       return;
     }
     if(moveNext) {
-      // const newBoardId = ""
-      // switch(boardId) {
-      //   case 'todo': return newBoardId = "doing";
-      //   case 'doing': return newBoardId = "done";
-      //   case 'done': return newBoardId = "approve";
-      //   default:
-      //     break;
-      // } 
+      var nextBoardId
+      switch(boardId) {
+        case 'todo': nextBoardId = "doing"; break;
+        case 'doing': nextBoardId = "done"; break;
+        case 'done': nextBoardId = "approve"; break;
+        case 'approve': nextBoardId = "todo"; break;
+        default:
+          break;
+      } 
       const deleteone = newTasks.filter((task) => task.id !== id);
-      thisTasks[boardId] = [...deleteone];
-      const newBoardId = "doing"
+      thisTasks[boardId].pop(...deleteone)
+      
       const moveTask = newTasks.filter((task) => task.id === id);
-      thisTasks[newBoardId] = [...moveTask];
+      thisTasks[nextBoardId].push(...moveTask)
+
       setTasks(thisTasks);
-      console.log(tasks, "move to " + newBoardId);
+      console.log(tasks, "move to " + nextBoardId);
       return;
     }
+
     thisTasks[boardId].push(newTasks);
     setTasks(thisTasks);
     console.log(tasks);
