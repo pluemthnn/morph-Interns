@@ -5,31 +5,20 @@ const TasksContext = createContext();
 const FunctionContext = createContext();
 
 function App() {
-  // const taskData = {
-  //   'todo': [{id: 23, text: 'call mom'}, {id: 42, text: 'call dad'}],
-  //   'doing': [],
-  //   'done':[{id: 33, text: 'work'}],
-  //   'approve': []
-  // }
+ 
   const [tasks, setTasks] = useState({
     'todo': [
-      {
-        'id': 23, 'text': 'call mom'
-      },
-      {
-        'id': 42, 'text': 'call dad'
-      }
+      {'id': 23, 'text': 'call mom'},
+      {'id': 42, 'text': 'call dad'}
     ],
     'doing': [],
     'done': [
-      {
-        'id': 33, 'text': 'work'
-      }
+      {'id': 33, 'text': 'work'}
     ],
     'approve': []
   });
 
-  const updateTask = (newTasks, boardId, shouldDelete, moveNext, id) => {
+  const updateTask = (newTasks, boardId, shouldDelete, moveNext, pos, id) => {
     const thisTasks = { ...tasks } // the state task
     if (shouldDelete) {
       console.log('inShouldDelete');
@@ -39,19 +28,30 @@ function App() {
       console.log(tasks);
       return;
     }
-    if(moveNext) {
+    if (moveNext) {
       var nextBoardId
-      switch(boardId) {
-        case 'todo': nextBoardId = "doing"; break;
-        case 'doing': nextBoardId = "done"; break;
-        case 'done': nextBoardId = "approve"; break;
-        case 'approve': nextBoardId = "todo"; break;
-        default:
-          break;
-      } 
+      if (pos === 1) {  //move right
+        switch (boardId) {
+          case 'todo': nextBoardId = "doing"; break;
+          case 'doing': nextBoardId = "done"; break;
+          case 'done': nextBoardId = "approve"; break;
+          case 'approve': nextBoardId = "todo"; break;
+          default:
+            break;
+        }
+      } else if (pos === 0) { //move left
+        switch (boardId) {
+          case 'todo': nextBoardId = "approve"; break;
+          case 'doing': nextBoardId = "todo"; break;
+          case 'done': nextBoardId = "doing"; break;
+          case 'approve': nextBoardId = "done"; break;
+          default:
+            break;
+        }
+      }
       const deleteone = newTasks.filter((task) => task.id !== id);
       thisTasks[boardId] = [...deleteone];
-      
+
       const moveTask = newTasks.filter((task) => task.id === id);
       thisTasks[nextBoardId].push(...moveTask)
 
@@ -59,6 +59,7 @@ function App() {
       console.log(tasks, "move to " + nextBoardId);
       return;
     }
+
 
     thisTasks[boardId].push(newTasks);
     setTasks(thisTasks);

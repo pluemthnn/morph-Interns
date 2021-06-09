@@ -31,9 +31,10 @@ export default function Input(prop){
         console.log("Delete")
     }
 
-    const moveNext = (id) => {
+    const moveNext = (id, move) => {
         const moveTask = [...tasks]
-        updateTask(moveTask, boardName, false, true, id)
+        if(move === 1) updateTask(moveTask, boardName, false, true, 1, id); // move right
+        else updateTask(moveTask, boardName, false, true, 0, id); // move left
         console.log("Move")
     }
 

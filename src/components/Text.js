@@ -6,7 +6,7 @@ export default function Text ({ id, text, onDelete, moveNext }) {
         <>
             <div className="w-full bg-pink-50 rounded-lg p-3 my-2 flex justify-center">
                 <div className="inline-block fixed mr-72">
-                    <Button name="<" />
+                    <Button name="<" id={id} moveNext={moveNext} />
                 </div>
                 <div className="inline-block">
                     <p key={id} className="inline-block align-middle">{text}</p>
