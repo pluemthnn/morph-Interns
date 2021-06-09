@@ -10,7 +10,7 @@ export default function Input(prop){
     const updateTask = useContext(FunctionContext);
     const [text, setText] = useState('') // state
 
-    const addTask = text => {
+    const addTask = (text) => {
         const id = Math.floor(Math.random() * 100) + 1
         // const newTask = [...tasks, {id, text}]
         const newTask = {id, text}
@@ -27,13 +27,19 @@ export default function Input(prop){
 
     const deleteTask = (id) => {
         const newTask = [...tasks];
-        updateTask(newTask, boardName, true, id)
+        updateTask(newTask, boardName, true, false, id)
         console.log("Delete")
+    }
+
+    const moveNext = (id) => {
+        const moveTask = [...tasks]
+        updateTask(moveTask, boardName, false, true, id)
+        console.log("Move")
     }
 
     return(
         <>
-            {(tasks).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask}/>)}
+            {(tasks).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext}/>)}
             <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
                 <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 

@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react';
 import Header from "./components/Header.js";
 
-const TasksContext = React.createContext();
-const FunctionContext = React.createContext();
+const TasksContext = createContext();
+const FunctionContext = createContext();
 
 function App() {
   // const taskData = {
@@ -29,7 +29,7 @@ function App() {
     'approve': []
   });
 
-  const updateTask = (newTasks, boardId, shouldDelete, id) => {
+  const updateTask = (newTasks, boardId, shouldDelete, moveNext, id) => {
     const thisTasks = { ...tasks } // the state task
     if (shouldDelete) {
       console.log('inShouldDelete');
@@ -37,6 +37,24 @@ function App() {
       thisTasks[boardId] = [...deleteone];
       setTasks(thisTasks);
       console.log(tasks);
+      return;
+    }
+    if(moveNext) {
+      // const newBoardId = ""
+      // switch(boardId) {
+      //   case 'todo': return newBoardId = "doing";
+      //   case 'doing': return newBoardId = "done";
+      //   case 'done': return newBoardId = "approve";
+      //   default:
+      //     break;
+      // } 
+      const deleteone = newTasks.filter((task) => task.id !== id);
+      thisTasks[boardId] = [...deleteone];
+      const newBoardId = "doing"
+      const moveTask = newTasks.filter((task) => task.id === id);
+      thisTasks[newBoardId] = [...moveTask];
+      setTasks(thisTasks);
+      console.log(tasks, "move to " + newBoardId);
       return;
     }
     thisTasks[boardId].push(newTasks);
@@ -64,6 +82,5 @@ function App() {
   );
 }
 
-export { TasksContext };
-export { FunctionContext };
+export { TasksContext, FunctionContext };
 export default App;

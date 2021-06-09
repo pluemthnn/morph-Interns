@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-export default function Text ({ id, text, onDelete }) {
+export default function Text ({ id, text, onDelete, moveNext }) {
     return (
         <>
             <div className="w-full bg-pink-50 rounded-lg p-3 my-2 flex justify-center">
@@ -15,7 +15,7 @@ export default function Text ({ id, text, onDelete }) {
                     <Button name="X" id={id} onDelete={onDelete} />
                 </div>  
                 <div className="inline-block fixed ml-72">
-                    <Button name=">" />
+                    <Button name=">" id={id} moveNext={moveNext} />
                 </div>
             </div>
         </>
