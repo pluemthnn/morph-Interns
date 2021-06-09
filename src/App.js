@@ -5,70 +5,62 @@ const TasksContext = createContext();
 const FunctionContext = createContext();
 
 function App() {
- 
+
   const [tasks, setTasks] = useState({
-    'todo': [
-      {'id': 23, 'text': 'call mom'},
-      {'id': 42, 'text': 'call dad'}
-    ],
+    'todo': [],
     'doing': [],
-    'done': [
-      {'id': 33, 'text': 'work'}
-    ],
+    'done': [],
     'approve': []
   });
 
-  const updateTask = (newTasks, boardId, shouldDelete, moveNext, pos, id) => {
+  const removeTask = (newTasks, boardId, id) => {
     const thisTasks = { ...tasks } // the state task
-    if (shouldDelete) {
-      console.log('inShouldDelete');
-      const deleteone = newTasks.filter((task) => task.id !== id);
-      thisTasks[boardId].pop(...deleteone)
-      setTasks(thisTasks);
-      console.log(tasks);
-      return;
-    }
-    if (moveNext) {
-      var nextBoardId
-      if (pos === 1) {  //move right
-        switch (boardId) {
-          case 'todo': nextBoardId = "doing"; break;
-          case 'doing': nextBoardId = "done"; break;
-          case 'done': nextBoardId = "approve"; break;
-          case 'approve': nextBoardId = "todo"; break;
-          default:
-            break;
+    const deleteone = newTasks.filter((task) => task.id !== id);
+    thisTasks[boardId].pop(...deleteone)
+    setTasks(thisTasks);
+    return;
+  }
+
+  const moveTask = (newTasks, boardId, pos, id) => {
+    const thisTasks = { ...tasks } // the state task
+    const allBoard = ['todo','doing','done','approve'];
+    var nextBoardId
+
+    for(var i = 0; i < allBoard.length; i++){
+      if(boardId === allBoard[i]){
+        var nextI 
+        if(pos === 1){ //move right
+          nextI = i + 1; //index of next board
+          break;
         }
-      } else if (pos === 0) { //move left
-        switch (boardId) {
-          case 'todo': nextBoardId = "approve"; break;
-          case 'doing': nextBoardId = "todo"; break;
-          case 'done': nextBoardId = "doing"; break;
-          case 'approve': nextBoardId = "done"; break;
-          default:
-            break;
+        else if (pos === 0) { //move left
+          nextI = i - 1; //index of previous board
+          break;
         }
       }
-      const deleteone = newTasks.filter((task) => task.id !== id);
-      thisTasks[boardId] = [...deleteone];
-
-      const moveTask = newTasks.filter((task) => task.id === id);
-      thisTasks[nextBoardId].push(...moveTask)
-
-      setTasks(thisTasks);
-      console.log(tasks, "move to " + nextBoardId);
-      return;
     }
+    nextBoardId = allBoard[nextI];
+  
+    const deleteone = newTasks.filter((task) => task.id !== id);
+    thisTasks[boardId] = [...deleteone]; // delete from current board
 
+    const moveTask = newTasks.filter((task) => task.id === id);
+    thisTasks[nextBoardId].push(...moveTask) // add to des. board
 
-    thisTasks[boardId].push(newTasks);
     setTasks(thisTasks);
-    console.log(tasks);
+    return;
+
+  }
+
+  const updateTask = (newTasks, boardId) => {
+    const thisTasks = { ...tasks } // the state task
+    thisTasks[boardId].push(newTasks); // push the new task 
+    setTasks(thisTasks); // set to state
   }
 
   return (
     <div className="grid grid-cols-4 gap-4 p-7">
-      <FunctionContext.Provider value={updateTask}>
+      <FunctionContext.Provider value={{ updateTask, removeTask, moveTask }}>
         <TasksContext.Provider value={tasks.todo}>
           <Header className="rounded-lg	flex bg-yellow-500" name="To Do" boardId="todo" />
         </TasksContext.Provider>

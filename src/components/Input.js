@@ -7,7 +7,7 @@ export default function Input(prop){
     const boardId = prop;
     const boardName = String(Object.values(boardId));
     const tasks = useContext(TasksContext); 
-    const updateTask = useContext(FunctionContext);
+    const {updateTask, removeTask, moveTask} = useContext(FunctionContext);
     const [text, setText] = useState('') // state
 
     const addTask = (text) => {
@@ -27,14 +27,18 @@ export default function Input(prop){
 
     const deleteTask = (id) => {
         const newTask = [...tasks];
-        updateTask(newTask, boardName, true, false, id)
+        removeTask(newTask, boardName, true, false, id)
         console.log("Delete")
     }
 
     const moveNext = (id, move) => {
-        const moveTask = [...tasks]
-        if(move === 1) updateTask(moveTask, boardName, false, true, 1, id); // move right
-        else updateTask(moveTask, boardName, false, true, 0, id); // move left
+        const tempTask = [...tasks]
+        if(move === 1) {
+            moveTask(tempTask, boardName, 1, id); // move right
+        }
+        else {
+            moveTask(tempTask, boardName, 0, id); // move left
+        }
         console.log("Move")
     }
 
