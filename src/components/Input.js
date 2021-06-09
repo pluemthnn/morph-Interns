@@ -5,31 +5,30 @@ import Text from "./Text";
 
 export default function Input(prop){
     const boardId = prop;
+    const boardName = String(Object.values(boardId));
     const tasks = useContext(TasksContext); 
     const updateTask = useContext(FunctionContext);
     const [text, setText] = useState('') // state
 
     const addTask = text => {
         const id = Math.floor(Math.random() * 100) + 1
-        const newTask = [...tasks, {id, text}]
-        const _delete = false;
-        updateTask(newTask, boardId, _delete)
+        // const newTask = [...tasks, {id, text}]
+        const newTask = {id, text}
+        updateTask(newTask, boardName, false)
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
         if (!text) return;
-
-        addTask({ text })
+        addTask(text)
         setText('')
         console.log("Save")
     }
 
     const deleteTask = (id) => {
-        // setTasks(tasks.filter((task) => task.id !== id))
         const newTask = [...tasks];
-        const _delete = true;
-        updateTask(newTask, boardId, _delete, id)
+        updateTask(newTask, boardName, true, id)
+        console.log("Delete")
     }
 
     return(
