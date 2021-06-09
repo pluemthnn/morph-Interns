@@ -50,7 +50,7 @@ function App() {
           break;
       } 
       const deleteone = newTasks.filter((task) => task.id !== id);
-      thisTasks[boardId].pop(...deleteone)
+      thisTasks[boardId] = [...deleteone];
       
       const moveTask = newTasks.filter((task) => task.id === id);
       thisTasks[nextBoardId].push(...moveTask)
