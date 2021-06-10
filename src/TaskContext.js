@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 
-export const TasksContext = React.createContext();
-export const FunctionContext = React.createContext();
+const TasksContext = React.createContext();
+const FunctionContext = React.createContext();
 
-// export function useTasks() {
-//   return useContext(TasksContext)
-// }
+export function useTasks() {
+  return useContext(TasksContext)
+}
 
-// export function useUpdateTask() {
-//   return useContext(FunctionContext)
-// }
+export function useUpdateTask() {
+  return useContext(FunctionContext)
+}
 
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState({
@@ -21,7 +21,7 @@ export function TaskProvider({ children }) {
 
   const removeTask = (newTasks, boardId, id) => {
     const thisTasks = { ...tasks } // the state task
-    const deleteone = newTasks.filter((task) => task.id !== id);
+    const deleteone = newTasks[boardId].filter((task) => task.id !== id);
     thisTasks[boardId].pop(...deleteone)
     setTasks(thisTasks);
     return;
@@ -39,18 +39,17 @@ export function TaskProvider({ children }) {
           nextI = i + 1; //index of next board
           break;
         }
-        else if (pos === 0) { //move left
-          nextI = i - 1; //index of previous board
-          break;
-        }
+        //move left
+        nextI = i - 1; //index of previous board
+        break;
       }
     }
     nextBoardId = allBoard[nextI];
-  
-    const deleteone = newTasks.filter((task) => task.id !== id);
+
+    const deleteone = newTasks[boardId].filter((task) => task.id !== id);
     thisTasks[boardId] = [...deleteone]; // delete from current board
   
-    const moveTask = newTasks.filter((task) => task.id === id);
+    const moveTask = newTasks[boardId].filter((task) => task.id === id);
     thisTasks[nextBoardId].push(...moveTask) // add to des. board
   
     setTasks(thisTasks);
@@ -64,11 +63,11 @@ export function TaskProvider({ children }) {
   }
 
   return (
-    <FunctionContext.Consumer value={{removeTask, moveTask, updateTask}}>
-      <TasksContext.Consumer value={tasks}>
+    <FunctionContext.Provider value={{removeTask, moveTask, updateTask}}>
+      <TasksContext.Provider value={tasks}>
         {children}
-      </TasksContext.Consumer>
-    </FunctionContext.Consumer>
+      </TasksContext.Provider>
+    </FunctionContext.Provider>
   )
 }
 
