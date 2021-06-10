@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useTasks, useUpdateTask } from "../TaskContext";
+import React, { useState, useContext } from "react";
+import { TasksContext, FunctionContext } from "../TaskContext";
 import Button from "./Button";
 import Text from "./Text";
 
 export default function Input(prop){
     const boardId = prop;
     const boardName = String(Object.values(boardId));
-    const tasks = useTasks(); 
-    const {updateTask, removeTask, moveTask} = useUpdateTask();
+    const tasks = useContext(TasksContext); 
+    const {updateTask, removeTask, moveTask} = useContext(FunctionContext);
     const [text, setText] = useState('')
 
     const addTask = (text) => {
@@ -40,7 +40,7 @@ export default function Input(prop){
 
     return(
         <>
-            {(tasks).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext} boardName={boardName}/>)}
+            {(tasks[boardId]).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext} boardName={boardName}/>)}
             <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
                 <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
