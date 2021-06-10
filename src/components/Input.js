@@ -25,7 +25,7 @@ export default function Input(prop){
 
     const deleteTask = (id) => {
         const newTask = {...tasks};
-        removeTask(newTask, boardName, true, false, id)
+        removeTask(newTask, boardName, id)
     }
 
     const moveNext = (id, move) => {

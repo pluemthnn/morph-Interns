@@ -21,10 +21,8 @@ export function TaskProvider({ children }) {
 
   const removeTask = (newTasks, boardId, id) => {
     const thisTasks = { ...tasks } // the state task
-    const deleteone = newTasks[boardId].filter((task) => task.id !== id);
-    thisTasks[boardId].pop(...deleteone)
+    thisTasks[boardId] = newTasks[boardId].filter((task) => task.id !== id);
     setTasks(thisTasks);
-    return;
   }
   
   const moveTask = (newTasks, boardId, pos, id) => {
@@ -32,7 +30,7 @@ export function TaskProvider({ children }) {
     const allBoard = ['todo','doing','done','approve'];
     var nextBoardId
   
-    for(var i = 0; i < allBoard.length; i++){
+    for(let i = 0; i < allBoard.length; i++){
       if(boardId === allBoard[i]){
         var nextI 
         if(pos === 1){ //move right
@@ -46,8 +44,8 @@ export function TaskProvider({ children }) {
     }
     nextBoardId = allBoard[nextI];
 
-    const deleteone = newTasks[boardId].filter((task) => task.id !== id);
-    thisTasks[boardId] = [...deleteone]; // delete from current board
+    // delete from current board
+    thisTasks[boardId] = newTasks[boardId].filter((task) => task.id !== id);
   
     const moveTask = newTasks[boardId].filter((task) => task.id === id);
     thisTasks[nextBoardId].push(...moveTask) // add to des. board
