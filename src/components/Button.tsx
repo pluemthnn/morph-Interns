@@ -3,17 +3,18 @@ import React from "react";
 interface IBtnParam{
     name: string;
     id: number;
-    onDelete: (id: number) => void;
-    moveNext: (id: number, move: number) => void;
+    handleDelete: (id: number) => void;
+    handleMove: (id: number, move: number) => void;
 }
 
-export default function Button({ name, id, onDelete, moveNext }: IBtnParam) {
+const Button:React.FC<IBtnParam> = (props) => {
+    const {name, id, handleDelete, handleMove} = props
     const getButton = () => {
         switch(name) {
             case "Submit": return <button className='btn btn-submit'>{name}</button>;
-            case "X": return <button className='btn btn-close' onClick={() => onDelete(id)}>{name}</button>; 
-            case "<": return <button className='btn btn-prev-next' onClick={() => moveNext(id, 0)}>{name}</button>;
-            case ">": return <button className='btn btn-prev-next' onClick={() => moveNext(id, 1)}>{name}</button>;
+            case "X": return <button className='btn btn-close' onClick={() => handleDelete(id)}>{name}</button>; 
+            case "<": return <button className='btn btn-prev-next' onClick={() => handleMove(id, 0)}>{name}</button>;
+            case ">": return <button className='btn btn-prev-next' onClick={() => handleMove(id, 1)}>{name}</button>;
             default: 
                 break;
         }
@@ -25,3 +26,4 @@ export default function Button({ name, id, onDelete, moveNext }: IBtnParam) {
         </>
     )
 }
+export default Button

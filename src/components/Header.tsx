@@ -1,13 +1,13 @@
 import React from "react";
-import Input from "./Input.js";
+import Input from "./Input";
 
 interface IHeaderParam{
     className: string,
     name: string,
-    boardName: {boardName: string}
+    boardName: string
 }
 
-export default function Header(props: IHeaderParam){
+const Header:React.FC<IHeaderParam> = (props) => {
     const {className, name, boardName} = props
     return(
     <div>
@@ -30,3 +30,4 @@ export default function Header(props: IHeaderParam){
     </div> 
     );
 }
+export default Header
