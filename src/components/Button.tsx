@@ -1,6 +1,13 @@
 import React from "react";
 
-export default function Button({ name, id, onDelete, moveNext }) {
+interface IBtnParam{
+    name: string;
+    id: number;
+    onDelete: (id: number) => void;
+    moveNext: (id: number, move: number) => void;
+}
+
+export default function Button({ name, id, onDelete, moveNext }: IBtnParam) {
     const getButton = () => {
         switch(name) {
             case "Submit": return <button className='btn btn-submit'>{name}</button>;

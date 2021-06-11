@@ -1,8 +1,14 @@
 import React from "react";
 import Input from "./Input.js";
 
-export default function Header(props){
-    const {className, name, boardId} = props
+interface IHeaderParam{
+    className: string,
+    name: string,
+    boardName: {boardName: string}
+}
+
+export default function Header(props: IHeaderParam){
+    const {className, name, boardName} = props
     return(
     <div>
         <div className={className}>
@@ -17,7 +23,7 @@ export default function Header(props){
         <div className="max-h-7xl my-auto">
             <div className="flex items-center justify-between flex-wrap">
                 <div className="md:w-full">
-                    <Input boardId={boardId}/>
+                    <Input boardId={boardName}/>
                 </div>
             </div>
         </div>
