@@ -11,13 +11,13 @@ export function useUpdateTask() {
   return useContext(FunctionContext)
 }
 
-interface TaskProps {
+interface ITask {
   id: number
   text: string 
 }
 
-interface BoardNameProps {
-  [key: string]: TaskProps
+interface IBoardName {
+  [key: string]: ITask
 }
 
 export const TaskProvider: React.FC = ({ children }) => {
@@ -28,13 +28,13 @@ export const TaskProvider: React.FC = ({ children }) => {
     'approve': []
   });
 
-  const removeTask = (newTasks: Array<TaskProps>, boardName: BoardNameProps, id: number) => {
+  const removeTask = (newTasks: Array<ITask>, boardName: IBoardName, id: number) => {
     const thisTasks = { ...tasks } // the state task
-    thisTasks[boardName] = newTasks[boardName].filter((task: TaskProps) => task.id !== id);
+    thisTasks[boardName] = newTasks[boardName].filter((task: ITask) => task.id !== id);
     setTasks(thisTasks);
   }
   
-  const moveTask = (newTasks: Array<TaskProps>, boardName: BoardNameProps, pos: number, id: number) => {
+  const moveTask = (newTasks: Array<ITask>, boardName: IBoardName, pos: number, id: number) => {
     const thisTasks = { ...tasks } // the state task
     const allBoard = ['todo','doing','done','approve'];
     var nextBoardName
@@ -54,16 +54,16 @@ export const TaskProvider: React.FC = ({ children }) => {
     nextBoardName = allBoard[nextI];
 
     // delete from current board
-    thisTasks[boardName] = newTasks[boardName].filter((task: TaskProps) => task.id !== id);
+    thisTasks[boardName] = newTasks[boardName].filter((task: ITask) => task.id !== id);
   
-    const moveTask = newTasks[boardName].filter((task: TaskProps) => task.id === id);
+    const moveTask = newTasks[boardName].filter((task: ITask) => task.id === id);
     thisTasks[nextBoardName].push(moveTask[0]) // add to des. board
   
     setTasks(thisTasks);
     return;
   }
   
-  const updateTask = (newTasks: Array<TaskProps>, boardName: BoardNameProps) => {
+  const updateTask = (newTasks: Array<ITask>, boardName: IBoardName) => {
     const thisTasks = { ...tasks } // the state task
     thisTasks[boardName].push(newTasks); // push the new task 
     setTasks(thisTasks); // set to state
