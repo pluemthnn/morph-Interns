@@ -1,14 +1,8 @@
 import React from "react";
+import { HeaderProps } from "../@types/interfaces";
 import Input from "./Input";
 
-interface IHeaderParam{
-    className: string,
-    name: string,
-    boardName: string
-}
-
-const Header:React.FC<IHeaderParam> = (props) => {
-    const {className, name, boardName} = props
+const Header:React.FC<HeaderProps> = ({ className, name, boardName }) => {
     return(
     <div>
         <div className={className}>

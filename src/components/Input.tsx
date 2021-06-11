@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import { useTasks, useUpdateTask } from "../TaskContext";
+import { InputProps, ITask } from "../@types/interfaces"
 import Button from "./Button";
 import Text from "./Text";
 
-interface ITask {
-    id: number
-    text: string
-}
-
-interface InputProps {
-    boardId: string
-}
-
-const Input:React.FC<InputProps> = (prop) => {
-    const boardId = prop;
+const Input:React.FC<InputProps> = ({ boardId }) => {
     const boardName = String(Object.values(boardId));
     const tasks = useTasks(); 
     const {updateTask, removeTask, moveTask} = useUpdateTask();

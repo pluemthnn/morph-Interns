@@ -1,13 +1,6 @@
 import React from "react";
+import { TextProps } from "../@types/interfaces";
 import Button from "./Button";
-
-interface TextProps {
-    id: number
-    text: string
-    handleDelete:(id: number) => void
-    handleMove:(id: number, move: number) => void
-    boardName: string
-}
 
 const Text:React.FC<TextProps> = ({ id, text, handleDelete, handleMove, boardName }) => {
     return (

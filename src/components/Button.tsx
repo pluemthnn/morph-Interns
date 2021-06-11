@@ -1,14 +1,7 @@
 import React from "react";
+import { BtnProps } from "../@types/interfaces";
 
-interface IBtnParam{
-    name: string;
-    id: number;
-    handleDelete: (id: number) => void;
-    handleMove: (id: number, move: number) => void;
-}
-
-const Button:React.FC<IBtnParam> = (props) => {
-    const {name, id, handleDelete, handleMove} = props
+const Button:React.FC<BtnProps> = ({ name, id, handleDelete, handleMove }) => {
     const getButton = () => {
         switch(name) {
             case "Submit": return <button className='btn btn-submit'>{name}</button>;

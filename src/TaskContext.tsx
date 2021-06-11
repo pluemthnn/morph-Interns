@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { ITask, IBoardName } from "./@types/interfaces";
 
 const TasksContext = React.createContext({});
 const FunctionContext = React.createContext({});
@@ -9,15 +10,6 @@ export function useTasks() {
 
 export function useUpdateTask() {
   return useContext(FunctionContext)
-}
-
-interface ITask {
-  id: number
-  text: string 
-}
-
-interface IBoardName {
-  [key: string]: ITask
 }
 
 export const TaskProvider: React.FC = ({ children }) => {
