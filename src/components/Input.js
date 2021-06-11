@@ -1,47 +1,60 @@
 import React, { useState } from "react";
+import { useTasks, useUpdateTask } from "../TaskContext";
 import Button from "./Button";
 import Text from "./Text";
 
-export default function Input(){
-    const [tasks, setTasks] = useState([]) // [id, task]
-    const [text, setText] = useState('') // state
+export default function Input(prop){
+    const boardId = prop;
+    const boardName = String(Object.values(boardId));
+    const tasks = useTasks(); 
+    const {updateTask, removeTask, moveTask} = useUpdateTask();
+    const [text, setText] = useState('')
 
-    const addTask = (task) => {
+    const addTask = (text) => {
         const id = Math.floor(Math.random() * 100) + 1
-        const newTask = {id, ...task}
-        setTasks([...tasks, newTask])
+        const newTask = {id, text}
+        updateTask(newTask, boardName, false)
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
-        addTask({ text })
+        if (!text) return;
+        addTask(text)
         setText('')
-        console.log("Save")
     }
 
     const deleteTask = (id) => {
-        setTasks(tasks.filter((task) => task.id !== id))
+        const newTask = {...tasks};
+        removeTask(newTask, boardName, id)
+    }
+
+    const moveNext = (id, move) => {
+        const tempTask = {...tasks}
+        if(move === 1) {
+            moveTask(tempTask, boardName, 1, id); // move right
+        }
+        else {
+            moveTask(tempTask, boardName, 0, id); // move left
+        }
     }
 
     return(
         <>
-            {tasks.length > 0 ? <Text tasks={tasks} onDelete={deleteTask} /> : ""}
-            <form onSubmit={onSubmit}>
-                <div className="w-4/5 inline-block">
+            {(tasks[boardName]).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext} boardName={boardName}/>)}
+            <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
+                <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
-                        className="rounded-lg shadow-md bg-gray-50 border-2 border-gray-200 w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" 
+                        className="input-task" 
                         type="text" 
                         placeholder="Input" 
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     /> 
                 </div>
-                <div className="w-1/5 inline-block">
+                <div className="grid-flow-row inline-block">
                     <Button name="Submit" />
                 </div>
             </form>  
-        </>
-        
-        
+        </>  
     );
 }
