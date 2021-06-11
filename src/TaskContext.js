@@ -48,7 +48,7 @@ export function TaskProvider({ children }) {
     thisTasks[boardId] = newTasks[boardId].filter((task) => task.id !== id);
   
     const moveTask = newTasks[boardId].filter((task) => task.id === id);
-    thisTasks[nextBoardId].push(...moveTask) // add to des. board
+    thisTasks[nextBoardId].push(moveTask[0]) // add to des. board
   
     setTasks(thisTasks);
     return;
