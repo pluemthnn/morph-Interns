@@ -1,6 +1,6 @@
 export interface HeaderProps {
-    className: string,
-    name: string,
+    className: string
+    name: string
     boardName: string
 }
 
@@ -13,10 +13,10 @@ export interface TextProps {
 }
 
 export interface BtnProps{
-    name: string;
-    id: number;
-    handleDelete: (id: number) => void;
-    handleMove: (id: number, move: number) => void;
+    name: string
+    id: number
+    handleDelete: (id: number) => void
+    handleMove: (id: number, move: number) => void
 }
 
 export interface InputProps {
