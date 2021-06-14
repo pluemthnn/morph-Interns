@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useTasks, useUpdateTask } from "../TaskContext";
-import { InputProps, ITask } from "../@types/interfaces"
+import { InputProps, ITask, ITasks } from "../@types/interfaces"
 import Button from "./Button";
 import Text from "./Text";
 
 const Input:React.FC<InputProps> = ({ boardId }) => {
     const boardName = String(Object.values(boardId));
-    const tasks = useTasks(); 
-    const {updateTask, removeTask, moveTask} = useUpdateTask();
+    const tasks: ITasks = useTasks(); 
+    const { updateTask, removeTask, moveTask } = useUpdateTask();
     const [text, setText] = useState('')
 
     const addTask = (text: string) => {
         const id = Math.floor(Math.random() * 100) + 1
         const newTask = {id, text}
-        updateTask(newTask, boardName, false)
+        updateTask(newTask, boardName)
     }
 
     const onSubmit = (e: any) => {

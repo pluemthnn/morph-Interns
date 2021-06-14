@@ -28,6 +28,12 @@ export interface ITask {
     text: string
 }
   
-export interface IBoardName {
+export interface ITasks {
     [key: string]: ITask[]
+}
+
+export interface IFunction {
+    removeTask: (newTasks: ITasks, boardName: string, id: number) => void
+    moveTask: (newTasks: ITasks, boardName: string, pos: number, id: number) => void
+    updateTask: (newTasks: ITask, boardName: string) => void
 }
