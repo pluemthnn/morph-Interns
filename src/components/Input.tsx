@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 import { useTasks, useUpdateTask } from "../TaskContext";
+import { InputProps, ITask, ITasks } from "../@types/interfaces"
 import Button from "./Button";
 import Text from "./Text";
 
-export default function Input(prop){
-    const boardId = prop;
-    const boardName = String(Object.values(boardId));
-    const tasks = useTasks(); 
-    const {updateTask, removeTask, moveTask} = useUpdateTask();
+const Input:React.FC<InputProps> = ({ boardId }) => {
+    const boardName = boardId;
+    const tasks: ITasks = useTasks(); 
+    const { updateTask, removeTask, moveTask } = useUpdateTask();
     const [text, setText] = useState('')
 
-    const addTask = (text) => {
+    const addTask = (text: string) => {
         const id = Math.floor(Math.random() * 100) + 1
         const newTask = {id, text}
-        updateTask(newTask, boardName, false)
+        updateTask(newTask, boardName)
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: any) => {
         e.preventDefault()
         if (!text) return;
         addTask(text)
         setText('')
     }
 
-    const deleteTask = (id) => {
+    const handledeleteTask = (id: number) => {
         const newTask = {...tasks};
         removeTask(newTask, boardName, id)
     }
 
-    const moveNext = (id, move) => {
+    const handleMove = (id: number, move: number) => {
         const tempTask = {...tasks}
         if(move === 1) {
             moveTask(tempTask, boardName, 1, id); // move right
@@ -37,10 +37,10 @@ export default function Input(prop){
             moveTask(tempTask, boardName, 0, id); // move left
         }
     }
-
+    
     return(
         <>
-            {(tasks[boardName]).map((task) => <Text key={task.id} id={task.id} text={task.text} onDelete={deleteTask} moveNext={moveNext} boardName={boardName}/>)}
+            {(tasks[boardName]).map((task: ITask) => <Text key={task.id} id={task.id} text={task.text} handleDelete={handledeleteTask} handleMove={handleMove} boardName={boardName}/>)}
             <form onSubmit={onSubmit} className="flex space-x-4 space-y-2">
                 <div className="grid-flow-row inline-block w-5/6 pt-2">
                     <input 
@@ -52,9 +52,11 @@ export default function Input(prop){
                     /> 
                 </div>
                 <div className="grid-flow-row inline-block">
-                    <Button name="Submit" />
+                    <Button name="Submit" handleDelete={handledeleteTask} handleMove={handleMove} id={0}/>
                 </div>
             </form>  
         </>  
     );
 }
+
+export default Input

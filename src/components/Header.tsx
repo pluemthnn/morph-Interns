@@ -1,8 +1,8 @@
 import React from "react";
-import Input from "./Input.js";
+import { HeaderProps } from "../@types/interfaces";
+import Input from "./Input";
 
-export default function Header(props){
-    const {className, name, boardId} = props
+const Header:React.FC<HeaderProps> = ({ className, name, boardName }) => {
     return(
     <div>
         <div className={className}>
@@ -17,10 +17,11 @@ export default function Header(props){
         <div className="max-h-7xl my-auto">
             <div className="flex items-center justify-between flex-wrap">
                 <div className="md:w-full">
-                    <Input boardId={boardId}/>
+                    <Input boardId={boardName}/>
                 </div>
             </div>
         </div>
     </div> 
     );
 }
+export default Header
