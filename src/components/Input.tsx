@@ -5,7 +5,7 @@ import Button from "./Button";
 import Text from "./Text";
 
 const Input:React.FC<InputProps> = ({ boardId }) => {
-    const boardName = String(Object.values(boardId));
+    const boardName = boardId;
     const tasks: ITasks = useTasks(); 
     const { updateTask, removeTask, moveTask } = useUpdateTask();
     const [text, setText] = useState('')
@@ -37,7 +37,7 @@ const Input:React.FC<InputProps> = ({ boardId }) => {
             moveTask(tempTask, boardName, 0, id); // move left
         }
     }
-
+    
     return(
         <>
             {(tasks[boardName]).map((task: ITask) => <Text key={task.id} id={task.id} text={task.text} handleDelete={handledeleteTask} handleMove={handleMove} boardName={boardName}/>)}
